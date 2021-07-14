@@ -3,16 +3,41 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight} from 'react-native';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+        textoFrase: 'Vai dar certo!',
+        img: require('./src/biscoito.png'),
+    };
+
+    this.quebraBiscoito = this.quebraBiscoito.bind(this);
+
+    this.frases = [
+      'Programar é bom demais', 
+      'Show',
+      'Vai dar certo!', 
+      'Jobs'
+    ]
+  }
+
+  quebraBiscoito(){
+    let numeroAleatorio = Math.floor(Math.random() * this.frases.length);
+    this.setState({
+      textoFrase:this.frases[numeroAleatorio]
+     })
+  }
+
   render(){
     return (
       <View style={styles.container}>
-        <Image source={require('./src/biscoito.png')}
+        <Image source={this.state.img}
         style={styles.img}
         />
        
 
-        <Text style={styles.textoFrase}> Alguma Frase Aqui</Text>
-        <TouchableHighlight style={styles.btn}>
+        <Text style={styles.textoFrase}>{this.state.textoFrase}</Text>
+        <TouchableHighlight style={styles.btn} onPress={this.quebraBiscoito}>
           <View style={styles.btnArea}>
             <Text style={styles.btnTexto}>Quebrar Biscoito</Text>
           </View>
